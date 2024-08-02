@@ -1,3 +1,4 @@
+// Function that returns a promise resolving with an array after 3 seconds
 function getArray() {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -6,19 +7,21 @@ function getArray() {
   });
 }
 
+// Function to handle the promise chaining and update the DOM
 function manipulateAndDisplayData() {
   getArray()
     .then((array) => {
+      // Filter out odd numbers and display them
       return new Promise((resolve) => {
+        const evenNumbers = array.filter(num => num % 2 === 0);
         setTimeout(() => {
-          const evenNumbers = array.filter(num => num % 2 === 0);
           document.getElementById('output').textContent = `Even numbers: ${evenNumbers.join(', ')}`;
           resolve(evenNumbers);
         }, 1000);
       });
     })
     .then((evenNumbers) => {
-
+      // Multiply even numbers by 2 and display them
       return new Promise((resolve) => {
         setTimeout(() => {
           const multiplied = evenNumbers.map(num => num * 2);
@@ -32,4 +35,5 @@ function manipulateAndDisplayData() {
     });
 }
 
+// Call the function to start the process
 manipulateAndDisplayData();
